@@ -1,7 +1,7 @@
 # Личный проект «Киноман» [![Build status][travis-image]][travis-url]
 
 * Студент: [Влад Коломийцев](https://up.htmlacademy.ru/ecmascript/9/user/607609).
-* Наставник: `Без наставника`.
+* Наставник: `Без наставника(`.
 
 ---
 
