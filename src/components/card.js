@@ -1,15 +1,15 @@
-export default () => `
-<article class="film-card">
-          <h3 class="film-card__title">The Dance of Life</h3>
-          <p class="film-card__rating">8.3</p>
+export default (data) => `
+<article class="film-card" card_id="${data.id}">
+          <h3 class="film-card__title">${data.title}</h3>
+          <p class="film-card__rating">${data.rate}</p>
           <p class="film-card__info">
-            <span class="film-card__year">1929</span>
-            <span class="film-card__duration">1h 55m</span>
-            <span class="film-card__genre">Musical</span>
+            <span class="film-card__year">${data.year}</span>
+            <span class="film-card__duration">${data.time}</span>
+            <span class="film-card__genre">${data.genre}</span>
           </p>
-          <img src="./images/posters/the-dance-of-life.jpg" alt="" class="film-card__poster">
-          <p class="film-card__description">Burlesque comic Ralph "Skid" Johnson (Skelly), and specialty dancer Bonny Lee King (Carroll), end up together on a cold, rainy night at a tr…</p>
-          <a class="film-card__comments">5 comments</a>
+          <img src="./${data.img}" alt="${data.alt}" class="film-card__poster">
+          <p class="film-card__description">${data.desc}</p>
+          <a class="film-card__comments">${data.comments} comments</a>
           <form class="film-card__controls">
             <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
             <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>
