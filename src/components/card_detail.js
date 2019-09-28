@@ -172,4 +172,4 @@ export default (data) => {
   </form>
 </section>
   `;
-}
+};
