@@ -1,41 +1,75 @@
 import card from "./components/card.js";
 import cardDetail from "./components/card_detail.js";
 
+import {Card} from "./objects/card.js";
+import {CardDetail} from "./objects/cardDetail.js";
+import {removeElement} from "./utils.js";
+
 
 const doc = document;
-
 const $moviesSimple = doc.querySelector(`.films-list .films-list__container`);
 const $moviesExtra = doc.querySelectorAll(`.films-list--extra .films-list__container`);
 const $body = doc.querySelector(`body`);
 
 const renderCards = (data) => {
+
+
   for (let i = 0; i < 5; i++) {
-    const template = document.createElement(`template`);
-    const component = card(data[i]);
-    template.innerHTML = component;
-    const element = template.content;
-    $moviesSimple.appendChild(element);
+    const component = new Card(data[i]);
+    const componentDetail = new CardDetail(data[i]);
+    component.render();
+    $moviesSimple.appendChild(component.element);
+
+    component.onDetail = () => {
+      componentDetail.render();
+      $body.appendChild(componentDetail.element);
+    };
+
+    componentDetail.onClose = () => {
+      // componentDetail.unrender();
+      removeElement(`.film-details`);
+    };
   }
+
   const btn = doc.createElement(`template`);
   btn.innerHTML = `<button class="films-list__show-more">Show more</button>`;
   $moviesSimple.appendChild(btn.content);
 };
+
 const renderCardsExtraOne = (data) => {
   for (let i = 0; i < 2; i++) {
-    const template = document.createElement(`template`);
-    const component = card(data[i]);
-    template.innerHTML = component;
-    const element = template.content;
-    $moviesExtra[0].appendChild(element);
+    const component = new Card(data[i]);
+    const componentDetail = new CardDetail(data[i]);
+    component.render();
+    $moviesExtra[0].appendChild(component.element);
+
+    component.onDetail = () => {
+      componentDetail.render();
+      $body.appendChild(componentDetail.element);
+    };
+
+    componentDetail.onClose = () => {
+      // componentDetail.unrender();
+      removeElement(`.film-details`);
+    };
   }
 };
 const renderCardsExtraTwo = (data) => {
   for (let i = 0; i < 2; i++) {
-    const template = document.createElement(`template`);
-    const component = card(data[i]);
-    template.innerHTML = component;
-    const element = template.content;
-    $moviesExtra[1].appendChild(element);
+    const component = new Card(data[i]);
+    const componentDetail = new CardDetail(data[i]);
+    component.render();
+    $moviesExtra[1].appendChild(component.element);
+
+    component.onDetail = () => {
+      componentDetail.render();
+      $body.appendChild(componentDetail.element);
+    };
+
+    componentDetail.onClose = () => {
+      // componentDetail.unrender();
+      removeElement(`.film-details`);
+    };
   }
 };
 
@@ -111,9 +145,9 @@ const events = (data) => {
         return name.id === id;
       });
       renderCardDetail(search);
-
     });
   });
+
 };
 const parseDataDetail = (data) => {
   return data.map((it) => {
@@ -132,7 +166,8 @@ const parseDataDetail = (data) => {
       country: it.film_info.release.release_country,
       genres: it.film_info.genre[0],
       description: it.film_info.description,
-      comments: it.comments[0]
+      comments: it.comments[0],
+      commentsCount: it.comments.length
     };
   });
 };
@@ -162,27 +197,25 @@ export default class API {
         url: `movies`
       })
       .then(toJSON)
-      .then(parseData)
-      .then(renderCards)
-      .then(this._getDetailMovie);
+      // .then(consoleW)
+      .then(parseDataDetail)
+      .then(renderCards);
   }
   getMoviesExtraLeft() {
     return this._load({
         url: `movies`
       })
       .then(toJSON)
-      .then(parseData)
-      .then(renderCardsExtraOne)
-      .then(this._getDetailMovie);
+      .then(parseDataDetail)
+      .then(renderCardsExtraOne);
   }
   getMoviesExtraRight() {
     return this._load({
         url: `movies`
       })
       .then(toJSON)
-      .then(parseData)
-      .then(renderCardsExtraTwo)
-      .then(this._getDetailMovie);
+      .then(parseDataDetail)
+      .then(renderCardsExtraTwo);
   }
   getComments(id) {
     return this._load({

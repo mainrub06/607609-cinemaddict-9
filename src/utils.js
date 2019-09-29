@@ -3,3 +3,7 @@ export const createElement = function (element) {
   point.innerHTML = element;
   return point.content;
 };
+
+export const removeElement = function (element) {
+  document.querySelector(element).remove();
+};

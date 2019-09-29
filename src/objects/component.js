@@ -1,6 +1,6 @@
 import {
   createElement
-} from "../src/utils.js";
+} from "../utils";
 
 export class Component {
   constructor() {
@@ -9,7 +9,7 @@ export class Component {
     }
 
     this._element = null;
-    this._state = {};
+    // this._state = {};
   }
 
   get element() {
@@ -25,7 +25,7 @@ export class Component {
   unbind() {}
 
   render() {
-    this._element = createElement(this.template).firstElementChild;
+    this._element = createElement(this.template);
     this.bind();
     return this._element;
   }
