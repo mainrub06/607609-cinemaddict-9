@@ -27,6 +27,24 @@ export class CardDetail extends Component {
 
     this._element = null;
     this._onClose = null;
+    this._onEsc = null;
+  }
+
+  set onEsc(fn) {
+    this._onEsc = fn;
+  }
+
+  _onEscClose() {
+    if (typeof this._onEsc === `function`) {
+      this._onEsc();
+    }
+  }
+
+  _keyDownEsc() {
+    if (evt.keyCode === 27) {
+      this._element = null;
+      this._close();
+    }
   }
 
   _removeElement() {

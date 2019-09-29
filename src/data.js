@@ -1,9 +1,14 @@
-import card from "./components/card.js";
 import cardDetail from "./components/card_detail.js";
 
-import {Card} from "./objects/card.js";
-import {CardDetail} from "./objects/cardDetail.js";
-import {removeElement} from "./utils.js";
+import {
+  Card
+} from "./objects/card.js";
+import {
+  CardDetail
+} from "./objects/cardDetail.js";
+import {
+  removeElement
+} from "./utils.js";
 
 
 const doc = document;
@@ -12,8 +17,6 @@ const $moviesExtra = doc.querySelectorAll(`.films-list--extra .films-list__conta
 const $body = doc.querySelector(`body`);
 
 const renderCards = (data) => {
-
-
   for (let i = 0; i < 5; i++) {
     const component = new Card(data[i]);
     const componentDetail = new CardDetail(data[i]);
@@ -28,6 +31,13 @@ const renderCards = (data) => {
     componentDetail.onClose = () => {
       // componentDetail.unrender();
       removeElement(`.film-details`);
+    };
+    componentDetail.onEsc = () => {
+      document.addEventListener(`keydown`, function (evt) {
+        if (evt.keyCode === 27) {
+          removeElement(`.film-details`);
+        }
+      });
     };
   }
 
@@ -104,23 +114,6 @@ const parseComments = (data) => {
       comment: it.comment,
       date: it.date,
       emotion: it.emotion
-    };
-  });
-};
-
-const parseData = (data) => {
-  return data.map((it) => {
-    return {
-      id: it.id,
-      title: it.film_info.title,
-      rate: it.film_info.total_rating,
-      year: it.film_info.release.date,
-      time: it.film_info.release.date,
-      genre: it.film_info.genre[0],
-      img: it.film_info.poster,
-      alt: it.film_info.alternative_title,
-      desc: it.film_info.description,
-      comments: it.comments.length
     };
   });
 };
