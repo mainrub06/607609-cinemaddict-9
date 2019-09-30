@@ -10,6 +10,7 @@ import {
   removeElement
 } from "./utils.js";
 
+// нужно рефакторить для читабельности !!!!
 
 const doc = document;
 const $moviesSimple = doc.querySelector(`.films-list .films-list__container`);
