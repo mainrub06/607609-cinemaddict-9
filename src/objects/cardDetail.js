@@ -21,10 +21,6 @@ export class CardDetail extends Component {
     this._country = data.country;
     this._genres = data.genres;
 
-
-    this._close = this._close.bind(this);
-    this._removeElement = this._removeElement.bind(this);
-
     this._element = null;
     this._onClose = null;
     this._onEsc = null;
@@ -40,10 +36,11 @@ export class CardDetail extends Component {
     }
   }
 
-  _keyDownEsc() {
+  _keyDownEsc(evt) {
     if (evt.keyCode === 27) {
       this._element = null;
-      this._close();
+      this._onEscClose();
+
     }
   }
 
@@ -62,12 +59,21 @@ export class CardDetail extends Component {
     this._onClose = fn;
   }
 
+  onInputFocus(evt) {
+    this._onEsc = null;
+    // здесь будем стараться остановить событие при наведении
+  }
+
   bind() {
     this._element.querySelector(`.film-details__close-btn`).addEventListener(`click`, this._removeElement.bind(this));
+    this._element.querySelector(`.film-details__comment-input`).addEventListener(`focus`, this.onInputFocus.bind(this));
+    document.addEventListener(`keydown`, this._keyDownEsc.bind(this));
   }
 
   unbind() {
     this._element.querySelector(`.film-details__close-btn`).removeEventListener(`click`, this._removeElement.bind(this));
+    this._element.querySelector(`.film-details__comment-input`).removeEventListener(`focus`, this.onInputFocus.bind(this));
+    document.removeEventListener(`keydown`, this._keyDownEsc.bind(this));
   }
 
   get element() {

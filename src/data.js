@@ -33,11 +33,8 @@ const renderCards = (data) => {
       removeElement(`.film-details`);
     };
     componentDetail.onEsc = () => {
-      document.addEventListener(`keydown`, function (evt) {
-        if (evt.keyCode === 27) {
-          removeElement(`.film-details`);
-        }
-      });
+      // componentDetail.unrender();
+      removeElement(`.film-details`);
     };
   }
 
