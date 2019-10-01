@@ -59,13 +59,20 @@ export class CardDetail extends Component {
     this._onClose = fn;
   }
 
-  onInputFocus(evt) {
-    this._onEsc = null;
+  onInputFocus() {
+    document.removeEventListener(`keydown`, this._keyDownEsc.bind(this));
+    // this._onEsc = null;
+    // здесь будем стараться остановить событие при наведении
+  }
+  onInputBlur() {
+    document.addEventListener(`keydown`, this._keyDownEsc.bind(this));
+    // this._onEsc = null;
     // здесь будем стараться остановить событие при наведении
   }
 
   bind() {
     this._element.querySelector(`.film-details__close-btn`).addEventListener(`click`, this._removeElement.bind(this));
+    this._element.querySelector(`.film-details__comment-input`).addEventListener(`blur`, this.onInputBlur.bind(this));
     this._element.querySelector(`.film-details__comment-input`).addEventListener(`focus`, this.onInputFocus.bind(this));
     document.addEventListener(`keydown`, this._keyDownEsc.bind(this));
   }
@@ -74,10 +81,6 @@ export class CardDetail extends Component {
     this._element.querySelector(`.film-details__close-btn`).removeEventListener(`click`, this._removeElement.bind(this));
     this._element.querySelector(`.film-details__comment-input`).removeEventListener(`focus`, this.onInputFocus.bind(this));
     document.removeEventListener(`keydown`, this._keyDownEsc.bind(this));
-  }
-
-  get element() {
-    return this._element;
   }
 
   get template() {

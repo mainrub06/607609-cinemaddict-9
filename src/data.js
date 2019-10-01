@@ -60,6 +60,10 @@ const renderCardsExtraOne = (data) => {
       // componentDetail.unrender();
       removeElement(`.film-details`);
     };
+    componentDetail.onEsc = () => {
+      // componentDetail.unrender();
+      removeElement(`.film-details`);
+    };
   }
 };
 const renderCardsExtraTwo = (data) => {
@@ -75,6 +79,10 @@ const renderCardsExtraTwo = (data) => {
     };
 
     componentDetail.onClose = () => {
+      // componentDetail.unrender();
+      removeElement(`.film-details`);
+    };
+    componentDetail.onEsc = () => {
       // componentDetail.unrender();
       removeElement(`.film-details`);
     };
