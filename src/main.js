@@ -32,9 +32,7 @@ const renderComponents = () => {
   $main.insertBefore(MenuEl.element, $films);
   $main.insertBefore(SortEl.element, $films);
   // add film-list
-  api.getMovies();
-  api.getMoviesExtraLeft();
-  api.getMoviesExtraRight();
+  api.getController();
 };
 
 renderComponents();
