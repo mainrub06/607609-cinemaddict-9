@@ -35,5 +35,7 @@ const renderComponents = () => {
   api.getController();
 };
 
+// api.getComments(5);
+
 renderComponents();
-api.getComments(5);
+
